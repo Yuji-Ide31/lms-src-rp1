@@ -72,6 +72,24 @@ public class StudentAttendanceService {
 
 		return attendanceManagementDtoList;
 	}
+	
+	/**
+	 * 未入力チェック
+	 * 
+	 */
+	public boolean countUnfilledAttendances(Integer lmsUserId) {
+		// 今日の日付をString（yyyyMMdd形式）に変換している
+		// 今日の日付（yyyyMMdd）
+		String today = dateUtil.dateToString(new Date(), "yyyyMMdd");
+		
+		// そのまま今日の日付をDate型のtodayに代入している
+//		Date today = new Date();
+		
+		// 未入力件数を取得
+		int count = tStudentAttendanceMapper.countUnfilledAttendances(lmsUserId, Constants.DB_FLG_FALSE, today);
+		
+		return count > 0;
+	}
 
 	/**
 	 * 出退勤更新前のチェック

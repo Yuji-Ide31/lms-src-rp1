@@ -46,6 +46,10 @@ public class AttendanceController {
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
+		
+		// 過去日未入力チェック
+		boolean hasUnfilled = studentAttendanceService.countUnfilledAttendances(loginUserDto.getLmsUserId());
+	    model.addAttribute("hasUnfilled", hasUnfilled);
 
 		return "attendance/detail";
 	}

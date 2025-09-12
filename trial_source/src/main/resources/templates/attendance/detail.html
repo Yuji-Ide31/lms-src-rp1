@@ -16,6 +16,12 @@
 			<span>[[${message}]]</span>
 		</div>
 	</th:block>
+	
+	<th:block th:if="${hasUnfilled}">
+		<script type="text/javascript">
+			alert("過去日の勤怠に未入力があります。");
+		</script>
+	</th:block>
 
 	<h2>勤怠管理</h2>
 

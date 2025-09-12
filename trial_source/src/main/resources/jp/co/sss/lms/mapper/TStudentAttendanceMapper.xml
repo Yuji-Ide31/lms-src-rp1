@@ -39,6 +39,20 @@
 			AND t1.delete_flg = #{deleteFlg}
 		ORDER BY t2.date ASC
 	</select>
+	
+	<select id="countUnfilledAttendances" resultType="int">
+		SELECT COUNT(*)
+		FROM m_section sec
+			INNER JOIN m_course c ON c.course_id = sec.course_id 
+				AND c.delete_flg = #{deleteFlg}
+			LEFT JOIN t_student_attendance sa ON sa.lms_user_id = #{lmsUserId} 
+				AND sec.date = sa.training_date AND sa.delete_flg = #{deleteFlg}
+		WHERE sec.delete_flg = #{deleteFlg}
+			AND sec.date &lt; CAST(#{today} AS timestamp)<!--todayがDATE型の場合こちらを使用→AND sec.date &lt; #{today}  -->
+			AND (sa.student_attendance_id IS NULL 
+				OR COALESCE(sa.training_start_time, '') = ''
+				OR COALESCE(sa.training_end_time, '') = '')
+	</select>
 
 	<insert id="insert" parameterType="jp.co.sss.lms.entity.TStudentAttendance" useGeneratedKeys="true" keyProperty="studentAttendanceId">
 		INSERT INTO t_student_attendance 
