@@ -146,5 +146,34 @@ public class AttendanceUtil {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * 時間(00～23)のセレクトボックス用マップを作成
+	 * 
+	 * @return 時間マップ
+	 */
+	public LinkedHashMap<String, String> setHourMap() {
+		LinkedHashMap<String, String> map = new LinkedHashMap<>();
+		map.put("", "");
+		for (int i = 0; i < 24; i++) {
+			String key = String.format("%02d", i);
+			map.put(key, key);
+		}
+		return map;
+	}
+	
+	/**
+	 * 分(00～59)のセレクトボックス用マップを作成
+	 * 
+	 * @return 分マップ
+	 */
+	public LinkedHashMap<String, String> setMinuteMap() {
+		LinkedHashMap<String, String> map = new LinkedHashMap<>();
+		map.put("", "");
+		for (int i = 0; i < 60; i++) {
+			String key = String.format("%02d", i);
+			map.put(key, key);
+		}
+		return map;
+	}
 }

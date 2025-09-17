@@ -117,8 +117,7 @@ public class AttendanceController {
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		// 勤怠フォームの生成
-		AttendanceForm attendanceForm = studentAttendanceService
-				.setAttendanceForm(attendanceManagementDtoList);
+		AttendanceForm attendanceForm = studentAttendanceService.setAttendanceForm(attendanceManagementDtoList);
 		model.addAttribute("attendanceForm", attendanceForm);
 
 		return "attendance/update";
