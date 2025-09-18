@@ -47,6 +47,7 @@
 								</th:block>
 								<td class="w140">[[${dailyAttendanceForm.dispTrainingDate}]]</td>
 								<td class="w300">[[${dailyAttendanceForm.sectionName}]]</td>
+								<!-- 井手祐次郎 - Task.26 -->
 								<td class="w70">
 									<div style="display:flex; align-items:center; gap:4px;">
 									<select th:name="|attendanceList[${stat.index}].startHour|" class="form-control" style="width:70px;">
@@ -60,6 +61,7 @@
 									</select>
 									</div>
 								</td>
+								<!-- 井手祐次郎 - Task.26 -->
 								<td class="w70">
 									<div style="display:flex; align-items:center; gap:4px;">
 									<select th:name="|attendanceList[${stat.index}].endHour|" class="form-control" style="width:70px;">

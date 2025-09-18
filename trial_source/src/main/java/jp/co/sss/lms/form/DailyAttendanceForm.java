@@ -21,13 +21,13 @@ public class DailyAttendanceForm {
 	/** 退勤時間 */
 	private String trainingEndTime;
 	/** 出勤時間(時) */
-	private String startHour;
+	private String startHour;	// 井手祐次郎 - Task.26
 	/** 出勤時間(分) */
-	private String startMinute;
+	private String startMinute;	// 井手祐次郎 - Task.26
 	/** 退勤時間(時) */
-	private String endHour;
+	private String endHour;	// 井手祐次郎 - Task.26
 	/** 退勤時間(分) */
-	private String endMinute;
+	private String endMinute;	// 井手祐次郎 - Task.26
 	/** 中抜け時間 */
 	private Integer blankTime;
 	/** 中抜け時間（画面表示用） */

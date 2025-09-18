@@ -76,14 +76,13 @@ public class StudentAttendanceService {
 	/**
 	 * 未入力チェック
 	 * 
+	 * @param lmsUserId
+	 * @return count が 0 より大きいかどうかを返す
+	 * @author 井手祐次郎 - Task.25
 	 */
 	public boolean countUnfilledAttendances(Integer lmsUserId) {
-		// 今日の日付をString（yyyyMMdd形式）に変換している
 		// 今日の日付（yyyyMMdd）
 		String today = dateUtil.dateToString(new Date(), "yyyyMMdd");
-		
-		// そのまま今日の日付をDate型のtodayに代入している
-//		Date today = new Date();
 		
 		// 未入力件数を取得
 		int count = tStudentAttendanceMapper.countUnfilledAttendances(lmsUserId, Constants.DB_FLG_FALSE, today);
@@ -236,6 +235,7 @@ public class StudentAttendanceService {
 		attendanceForm.setUserName(loginUserDto.getUserName());
 		attendanceForm.setLeaveFlg(loginUserDto.getLeaveFlg());
 		attendanceForm.setBlankTimes(attendanceUtil.setBlankTime());
+		// 井手祐次郎 - Task.26
 		attendanceForm.setHourMaps(attendanceUtil.setHourMap());
 		attendanceForm.setMinuteMaps(attendanceUtil.setMinuteMap());
 
@@ -255,6 +255,7 @@ public class StudentAttendanceService {
 			dailyAttendanceForm.setTrainingStartTime(attendanceManagementDto.getTrainingStartTime());
 			dailyAttendanceForm.setTrainingEndTime(attendanceManagementDto.getTrainingEndTime());
 			
+			// 井手祐次郎 - Task.26
 			if (attendanceManagementDto.getTrainingStartTime() != null
 					&& !attendanceManagementDto.getTrainingStartTime().isEmpty()) {
 				String[] start = attendanceManagementDto.getTrainingStartTime().split(":");
@@ -262,6 +263,7 @@ public class StudentAttendanceService {
 				dailyAttendanceForm.setStartMinute(start[1]);
 			}
 			
+			// 井手祐次郎 - Task.26
 			if (attendanceManagementDto.getTrainingEndTime() != null
 					&& !attendanceManagementDto.getTrainingEndTime().isEmpty()) {
 				String[] end = attendanceManagementDto.getTrainingEndTime().split(":");
@@ -325,6 +327,7 @@ public class StudentAttendanceService {
 			tStudentAttendance.setLmsUserId(lmsUserId);
 			tStudentAttendance.setAccountId(loginUserDto.getAccountId());
 			
+			// 井手祐次郎 - Task.26
 			String startHour = dailyAttendanceForm.getStartHour();
 			String startMinute = dailyAttendanceForm.getStartMinute();
 			String startTimeStr = startHour + ":" + startMinute;
@@ -334,6 +337,7 @@ public class StudentAttendanceService {
 				dailyAttendanceForm.setTrainingStartTime("");
 			}
 			
+			// 井手祐次郎 - Task.26
 			String endHour = dailyAttendanceForm.getEndHour();
 			String endMinute = dailyAttendanceForm.getEndMinute();
 			String endTimeStr = endHour + ":" + endMinute;

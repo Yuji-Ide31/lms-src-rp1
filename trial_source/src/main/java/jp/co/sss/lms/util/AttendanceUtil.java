@@ -151,6 +151,7 @@ public class AttendanceUtil {
 	 * 時間(00～23)のセレクトボックス用マップを作成
 	 * 
 	 * @return 時間マップ
+	 * @author 井手祐次郎 - Task26
 	 */
 	public LinkedHashMap<String, String> setHourMap() {
 		LinkedHashMap<String, String> map = new LinkedHashMap<>();
@@ -166,6 +167,7 @@ public class AttendanceUtil {
 	 * 分(00～59)のセレクトボックス用マップを作成
 	 * 
 	 * @return 分マップ
+	 * @author 井手祐次郎 - Task26
 	 */
 	public LinkedHashMap<String, String> setMinuteMap() {
 		LinkedHashMap<String, String> map = new LinkedHashMap<>();
