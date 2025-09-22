@@ -385,5 +385,21 @@ public class StudentAttendanceService {
 		// 完了メッセージ
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
+	
+	public List<String> validateAttendanceForm(AttendanceForm attendanceForm){
+		List<String> errors = new ArrayList<>();
+		for (DailyAttendanceForm dailyAttendanceForm : attendanceForm.getAttendanceList()){
+			if (!dailyAttendanceForm.isStartEndTimeValid()) {
+				errors.add(dailyAttendanceForm.getTrainingDate() + "：出勤と退勤は両方入力してください。");
+			}
+			if (!dailyAttendanceForm.isTrainingTimeRangeValid()) {
+				errors.add(dailyAttendanceForm.getTrainingDate() + "：出勤時刻は退勤時刻より前にしてください。");
+			}
+			if (!dailyAttendanceForm.isBlankTimeValid()) {
+				errors.add(dailyAttendanceForm.getTrainingDate() + "：中抜け時間が勤務時間を超えています。");
+			}
+		}
+		return errors;
+	}
 
 }
