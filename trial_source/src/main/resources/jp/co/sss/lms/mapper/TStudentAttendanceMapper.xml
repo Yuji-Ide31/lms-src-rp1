@@ -42,7 +42,7 @@
 	</select>
 	
 	<!-- 井手祐次郎 - Task.25 -->
-	<select id="countUnfilledAttendances" resultType="Integer">
+	<select id="notEnterCount" resultType="Integer">
 		SELECT COUNT(*)
 		FROM t_student_attendance sa
 		WHERE sa.lms_user_id = #{lmsUserId}

@@ -49,7 +49,7 @@ public class AttendanceController {
 		
 		// 井手祐次郎 - Task.25
 		// 過去日未入力チェック
-		boolean hasUnfilled = studentAttendanceService.countUnfilledAttendances(loginUserDto.getLmsUserId());
+		boolean hasUnfilled = studentAttendanceService.notEnterCount(loginUserDto.getLmsUserId());
 	    model.addAttribute("hasUnfilled", hasUnfilled);
 
 		return "attendance/detail";

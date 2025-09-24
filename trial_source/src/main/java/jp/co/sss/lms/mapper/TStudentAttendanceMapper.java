@@ -58,7 +58,7 @@ public interface TStudentAttendanceMapper {
 	 * @return 未入力の勤怠件数
 	 * @author 井手祐次郎 - Task.25
 	 */
-	Integer countUnfilledAttendances(@Param("lmsUserId") Integer lmsUserId, 
+	Integer notEnterCount(@Param("lmsUserId") Integer lmsUserId, 
 			@Param("deleteFlg") Short deleteFlg, @Param("trainingDate") String trainingDate);
 
 	/**

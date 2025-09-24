@@ -80,12 +80,12 @@ public class StudentAttendanceService {
 	 * @return count が 0 より大きいかどうかを返す
 	 * @author 井手祐次郎 - Task.25
 	 */
-	public boolean countUnfilledAttendances(Integer lmsUserId) {
+	public boolean notEnterCount(Integer lmsUserId) {
 		// 今日の日付（yyyyMMdd）
 		String trainingDate = dateUtil.dateToString(new Date(), "yyyyMMdd");
 		
 		// 未入力件数を取得
-		int count = tStudentAttendanceMapper.countUnfilledAttendances(lmsUserId, Constants.DB_FLG_FALSE, trainingDate);
+		int count = tStudentAttendanceMapper.notEnterCount(lmsUserId, Constants.DB_FLG_FALSE, trainingDate);
 		
 		return count > 0;
 	}
