@@ -82,10 +82,10 @@ public class StudentAttendanceService {
 	 */
 	public boolean countUnfilledAttendances(Integer lmsUserId) {
 		// 今日の日付（yyyyMMdd）
-		String today = dateUtil.dateToString(new Date(), "yyyyMMdd");
+		String trainingDate = dateUtil.dateToString(new Date(), "yyyyMMdd");
 		
 		// 未入力件数を取得
-		int count = tStudentAttendanceMapper.countUnfilledAttendances(lmsUserId, Constants.DB_FLG_FALSE, today);
+		int count = tStudentAttendanceMapper.countUnfilledAttendances(lmsUserId, Constants.DB_FLG_FALSE, trainingDate);
 		
 		return count > 0;
 	}

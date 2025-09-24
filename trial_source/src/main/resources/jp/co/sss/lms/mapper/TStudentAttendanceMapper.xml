@@ -42,18 +42,17 @@
 	</select>
 	
 	<!-- 井手祐次郎 - Task.25 -->
-	<select id="countUnfilledAttendances" resultType="int">
+	<select id="countUnfilledAttendances" resultType="Integer">
 		SELECT COUNT(*)
-		FROM m_section sec
-			INNER JOIN m_course c ON c.course_id = sec.course_id 
-				AND c.delete_flg = #{deleteFlg}
-			LEFT JOIN t_student_attendance sa ON sa.lms_user_id = #{lmsUserId} 
-				AND sec.date = sa.training_date AND sa.delete_flg = #{deleteFlg}
-		WHERE sec.delete_flg = #{deleteFlg}
-			AND sec.date &lt; CAST(#{today} AS timestamp)
-			AND (sa.student_attendance_id IS NULL 
-				OR COALESCE(sa.training_start_time, '') = ''
-				OR COALESCE(sa.training_end_time, '') = '')
+		FROM t_student_attendance sa
+		WHERE sa.lms_user_id = #{lmsUserId}
+			AND sa.delete_flg = #{deleteFlg}
+			AND sa.training_date &lt; CAST(#{trainingDate} AS timestamp)
+			AND sa.status != '1'
+			AND (sa.training_start_time = ''
+				OR sa.training_end_time = ''
+				OR sa.training_start_time IS NULL
+				OR sa.training_end_time IS NULL)
 	</select>
 
 	<insert id="insert" parameterType="jp.co.sss.lms.entity.TStudentAttendance" useGeneratedKeys="true" keyProperty="studentAttendanceId">
