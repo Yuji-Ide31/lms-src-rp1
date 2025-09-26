@@ -2,6 +2,7 @@ package jp.co.sss.lms.controller;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jakarta.validation.Valid;
 import jp.co.sss.lms.dto.AttendanceManagementDto;
 import jp.co.sss.lms.dto.LoginUserDto;
 import jp.co.sss.lms.form.AttendanceForm;
@@ -134,16 +136,24 @@ public class AttendanceController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(path = "/update", params = "complete", method = RequestMethod.POST)
-	public String complete(AttendanceForm attendanceForm, Model model, BindingResult result)
+	public String complete(@Valid AttendanceForm attendanceForm, Model model, BindingResult result)
 			throws ParseException {
 		
-		List<String> errors = studentAttendanceService.validateAttendanceForm(attendanceForm);
+		Map<String, List<String>> validationResult = studentAttendanceService.validateAttendanceForm(attendanceForm);
+	    List<String> errors = validationResult.get("errors");
+	    List<String> fieldErrors = validationResult.get("fieldErrors");
 		if(!errors.isEmpty()) {
-			model.addAttribute("attendanceForm", attendanceForm);
+			// 再度リストを組み立て
+			List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
+					.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
+			
+			AttendanceForm newAttendanceForm = studentAttendanceService.setAttendanceForm(attendanceManagementDtoList);
+			model.addAttribute("attendanceForm", newAttendanceForm);
 			model.addAttribute("errors", errors);
+			model.addAttribute("fieldErrors", fieldErrors);
 			return "attendance/update";
 		}
-
+		
 		// 更新
 		String message = studentAttendanceService.update(attendanceForm);
 		model.addAttribute("message", message);
@@ -151,7 +161,7 @@ public class AttendanceController {
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
-
+		
 		return "attendance/detail";
 	}
 

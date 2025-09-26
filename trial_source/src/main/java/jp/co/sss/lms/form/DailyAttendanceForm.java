@@ -1,7 +1,6 @@
 package jp.co.sss.lms.form;
 
 import jakarta.validation.constraints.Size;
-import jp.co.sss.lms.util.TrainingTime;
 import lombok.Data;
 
 /**
@@ -57,43 +56,5 @@ public class DailyAttendanceForm {
 	private String courseName;
 	/** インデックス */
 	private String index;
-	
-	/** 出勤/退勤の片方のみ入力チェック */
-	public boolean isStartEndTimeValid() {
-		boolean startFilled = startHour != null && !startHour.isEmpty() && startMinute != null && !startMinute.isEmpty();
-		boolean endFilled = endHour != null && !endHour.isEmpty() && endMinute != null && !endMinute.isEmpty();
-		
-		if((startFilled && !endFilled) || (!startFilled && endFilled)) {
-			return false;
-		}
-		return true;
-	}
-	
-	/** 出勤時間 < 退勤時間チェック */
-	public boolean isTrainingTimeRangeValid() {
-		boolean startFilled = startHour != null && !startHour.isEmpty() && startMinute != null && !startMinute.isEmpty();
-		boolean endFilled = endHour != null && !endHour.isEmpty() && endMinute != null && !endMinute.isEmpty();
-		
-		if(startFilled && endFilled) {
-			TrainingTime start = new TrainingTime(startHour + ":" + startMinute);
-			TrainingTime end = new TrainingTime(endHour + ":" + endMinute);
-			return start.compareTo(end) <=0;
-		}
-		return true;
-	}
-	
-	/** 中抜け時間が勤怠時間を超えていないかチェック */
-	public boolean isBlankTimeValid() {
-		boolean startFilled = startHour != null && !startHour.isEmpty() && startMinute != null && !startMinute.isEmpty();
-		boolean endFilled = endHour != null && !endHour.isEmpty() && endMinute != null && !endMinute.isEmpty();
-		
-		if (startFilled && endFilled && blankTime !=null) {
-			TrainingTime start = new TrainingTime(startHour + ":" + startMinute);
-			TrainingTime end = new TrainingTime(endHour + ":" + endMinute);
-			int totalMinutes = end.getHour() * 60 + end.getMinute() - (start.getHour() * 60 + start.getMinute());
-			return blankTime <= totalMinutes;
-		}
-		return true;
-	}
 
 }

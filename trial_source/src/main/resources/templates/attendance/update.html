@@ -21,10 +21,9 @@
 	<div class="row">
 		<div class="bs-component col-sm-12">
 			
-			<div th:if="${errors != null && !#lists.isEmpty(errors)}" class="alert alert-danger" style="margin-bottom:1rem;">
-				<strong>エラー：</strong>
+			<div th:if="${errors != null && !#lists.isEmpty(errors)}" style="margin-bottom:1rem;">
 				<ul style="margin:0; padding-left:1.2rem;">
-					<li th:each="err : ${errors}" th:text="${err}"></li>
+					<li th:each="err : ${errors}" th:text="${err}" class="text-danger"></li>
 				</ul>
 			</div>
 
@@ -57,12 +56,14 @@
 								<!-- 井手祐次郎 - Task.26 -->
 								<td class="w70">
 									<div style="display:flex; align-items:center; gap:4px;">
-									<select th:name="|attendanceList[${stat.index}].startHour|" class="form-control" style="width:70px;">
+									<select th:name="|attendanceList[${stat.index}].startHour|" class="form-control" 
+										th:styleappend="${fieldErrors != null and fieldErrors.contains('startHour-' + stat.index)} ? 'border:2px solid red; background-color:#ffe5e5;' : ''" style="width:70px;">
 										<option th:each="startHour : ${attendanceForm.hourMaps}" th:value="${startHour.key}" th:inline="text" class="form-control"
 										th:selected="${startHour.key == dailyAttendanceForm.startHour}">[[${startHour.value}]]</option>
 									</select>
 									<span>:</span>
-									<select th:name="|attendanceList[${stat.index}].startMinute|" class="form-control" style="width:70px;">
+									<select th:name="|attendanceList[${stat.index}].startMinute|" class="form-control"
+										th:styleappend="${fieldErrors != null and fieldErrors.contains('startMinute-' + stat.index)} ? 'border:2px solid red; background-color:#ffe5e5;' : ''" style="width:70px;">
 										<option th:each="startMinute : ${attendanceForm.minuteMaps}" th:value="${startMinute.key}" th:inline="text" class="form-control"
 										th:selected="${startMinute.key == dailyAttendanceForm.startMinute}">[[${startMinute.value}]]</option>
 									</select>
@@ -71,19 +72,22 @@
 								<!-- 井手祐次郎 - Task.26 -->
 								<td class="w70">
 									<div style="display:flex; align-items:center; gap:4px;">
-									<select th:name="|attendanceList[${stat.index}].endHour|" class="form-control" style="width:70px;">
+									<select th:name="|attendanceList[${stat.index}].endHour|" class="form-control" 
+										th:styleappend="${fieldErrors != null and fieldErrors.contains('endHour-' + stat.index)} ? 'border:2px solid red; background-color:#ffe5e5;' : ''" style="width:70px;">
 										<option th:each="endHour : ${attendanceForm.hourMaps}" th:value="${endHour.key}" th:inline="text" class="form-control"
 										th:selected="${endHour.key == dailyAttendanceForm.endHour}">[[${endHour.value}]]</option>
 									</select>
 									<span>:</span>
-									<select th:name="|attendanceList[${stat.index}].endMinute|" class="form-control" style="width:70px;">
+									<select th:name="|attendanceList[${stat.index}].endMinute|" class="form-control" 
+										th:styleappend="${fieldErrors != null and fieldErrors.contains('endMinute-' + stat.index)} ? 'border:2px solid red; background-color:#ffe5e5;' : ''" style="width:70px;">
 										<option th:each="endMinute : ${attendanceForm.minuteMaps}" th:value="${endMinute.key}" th:inline="text" class="form-control"
 										th:selected="${endMinute.key == dailyAttendanceForm.endMinute}">[[${endMinute.value}]]</option>
 									</select>
 									</div>
 								</td>
 								<td class="w80">
-									<select th:name="|attendanceList[${stat.index}].blankTime|" class="form-control">
+									<select th:name="|attendanceList[${stat.index}].blankTime|" class="form-control"
+										th:styleappend="${fieldErrors != null and fieldErrors.contains('blankTime-' + stat.index)} ? 'border:2px solid red; background-color:#ffe5e5;' : ''">
 										<option th:each="blankTime : ${attendanceForm.blankTimes}" th:value="${blankTime.key}" th:inline="text" class="form-control" 
 											th:selected="${blankTime.key == dailyAttendanceForm.blankTime}">[[${blankTime.value}]]</option>
 									</select>
