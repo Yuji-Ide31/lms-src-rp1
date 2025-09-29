@@ -139,6 +139,7 @@ public class AttendanceController {
 	public String complete(@Valid AttendanceForm attendanceForm, Model model, BindingResult result)
 			throws ParseException {
 		
+		// 井手祐次郎 - Task.27
 		Map<String, List<String>> validationResult = studentAttendanceService.validateAttendanceForm(attendanceForm);
 	    List<String> errors = validationResult.get("errors");
 	    List<String> fieldErrors = validationResult.get("fieldErrors");

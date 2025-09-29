@@ -388,6 +388,13 @@ public class StudentAttendanceService {
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
 	
+	/**
+	 * 入力チェック
+	 * 
+	 * @param attendanceForm
+	 * @return エラーメッセージ
+	 * @author 井手祐次郎 - Task.27
+	 */
 	public Map<String, List<String>> validateAttendanceForm(AttendanceForm attendanceForm){
 		Map<String, List<String>> result = new HashMap<>();
 		List<String> errors = new ArrayList<>();
